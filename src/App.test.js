@@ -58,10 +58,10 @@ it('adds error class to input field when creating a blank task', () => {
 
 
 it('toggles done classs on li when click', () => {
-  const wrapper = shallow(<App />);
+  const wrapper = mount(<App />);
   const task = wrapper.find('li').first()
-  task.simulate('click')
+  task.simulate('click', {preventDefault(){}})
   expect(wrapper.find('li').first().hasClass('done')).toBe(true)
-  task.simulate('click')
+  task.simulate('click', {preventDefault(){}})
   expect(wrapper.find('li').first().hasClass('done')).toBe(false)
 })
