@@ -20,7 +20,7 @@ it('renders three li tags at the beggining', () => {
 
 it('rendered the li with correct text at the beggining', () => {
   const wrapper = shallow(<App />);
-  const tasks = ['Sacar la ropa', 'Hacer la cama', 'Leer un rato',]
+  const tasks = ['Sacar la ropa', 'Hacer la cama', 'Leer un rato']
   expect(wrapper.find('li').length).toBe(3);
   wrapper.find('li').forEach(function(node, i) {
     expect(node.text()).toBe(tasks[i]);
