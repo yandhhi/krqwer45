@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { render, shallow, mount } from 'enzyme';
 import App from './App';
+import Setup from './Setup';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
