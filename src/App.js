@@ -4,15 +4,19 @@ import React, { Component } from 'react';
 
 class App extends Component {
   constructor() {
-    super()
+    super();
+    this.updateTask = this.updateTask.bind(this);
+    this.addTask = this.addTask.bind(this);
+
     this.state = {
       tasks: [
-        { id: 1, name: "Sacar la ropa", done: false },
-        { id: 2, name: "Hacer la cama", done: true },
-        { id: 3, name: "Leer un rato", done: false }
+        { id: 1, name: 'Sacar la ropa', done: false },
+        { id: 2, name: 'Hacer la cama', done: true },
+        { id: 3, name: 'Leer un rato', done: false },
       ],
-      newTask: ''
-    }
+      newTask: '',
+      empty: false,
+    };
   }
   render() {
     return (
@@ -20,14 +24,49 @@ class App extends Component {
         <div className="list">
           <h3>Por hacer:</h3>
           <ul className="todo">
-            {this.state.tasks.map((task, index) => <li key={task.id}>{task.name}</li>)}
+            {this.state.tasks.map((task, index) => (
+              <li key={task.id} className={task.done === true ? 'done' : null}>
+                {task.name}
+              </li>
+            ))}
           </ul>
-          <form>
-            <input type="text" id="new-task" placeholder="Ingresa una tarea y oprime Enter" value={this.state.newTask} />
+          <form onSubmit={this.addTask}>
+            <input
+              type="text"
+              id="new-task"
+              className={this.state.empty ? 'error' : null}
+              onChange={this.updateTask}
+              placeholder="Ingresa una tarea y oprime Enter"
+              value={this.state.newTask}
+            />
           </form>
         </div>
       </div>
-    )
+    );
+  }
+
+  addTask(event) {
+    event.preventDefault();
+    if (this.state.newTask === '')
+      this.setState({
+        empty: true,
+      });
+    else
+      this.setState({
+        tasks: this.state.tasks.concat({
+          id: this.state.tasks.length + 1,
+          name: this.state.newTask,
+          done: false,
+        }),
+        newTask: '',
+        empty: false,
+      });
+  }
+
+  updateTask(event) {
+    this.setState({
+      newTask: event.target.value,
+    });
   }
 }
 
